@@ -41,7 +41,7 @@ const handleMouseClick = (e) => {
   resolveSecondPromise('Second promise was resolved');
 
   if (clicks[0]) {
-    resolveFirstPromise('First promise was resolved on a left click');
+    resolveFirstPromise('First promise was resolved');
   }
 
   if (clicks[1] && clicks[0]) {
@@ -53,10 +53,15 @@ firstPromise
   .then((result) => createNotification(result, true))
   .catch((error) => createNotification(error.message, false));
 
-secondPromise.then((result) => createNotification(result, true));
+secondPromise.then
+  ((result) => createNotification(result, true))
+  .catch((error) => createNotification(error.message, false));
 
 thirdPromise.then((results) => {
-  createNotification(`Third promise was resolved`, true);
+  createNotification(results, true);
+})
+.catch((error) => {
+  createNotification(error.message, false);
 });
 
 document.addEventListener('click', handleMouseClick);
